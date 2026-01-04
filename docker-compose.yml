@@ -1,0 +1,26 @@
+services:
+  # MCPO Proxy - Now includes Playwright directly
+  mcpo:
+    build:
+      context: ./mcpo
+      dockerfile: Dockerfile
+    container_name: mcpo-gateway
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./mcpo/config.json:/app/config/config.json:ro
+      - mcpo-data:/app/data
+    environment:
+      - MCPO_API_KEY=abracadabra
+      - DISPLAY=:99
+    restart: unless-stopped
+    networks:
+      - mcp-network
+    shm_size: 2gb
+
+volumes:
+  mcpo-data:
+
+networks:
+  mcp-network:
+    driver: bridge
