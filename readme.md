@@ -7,57 +7,57 @@ c:\ollama serve
 And in web ui set up context: 
 set parameter num_ctx to 32768 in general advanced config 
 
-# Open WEB UI Standard standalone container installation
-docker run -d ` -p 3000:8080 ` --add-host=host.docker.internal:host-gateway ` -v open-webui:/app/backend/data ` --name open-webui ` --restart always ` --network mcp-network ` ghcr.io/open-webui/open-webui:main
-
 # For MCP Gateway solution created with Claude
 
-# Remove and rebuild everything
+## Open WEB UI Standard standalone container installation
+docker run -d ` -p 3000:8080 ` --add-host=host.docker.internal:host-gateway ` -v open-webui:/app/backend/data ` --name open-webui ` --restart always ` --network mcp-network ` ghcr.io/open-webui/open-webui:main
+
+## Remove and rebuild everything
 docker-compose down
 docker-compose up -d --build
 
-# Restart a specific container
+## Restart a specific container
 docker-compose restart mcpo
 
-# Rebuild a specific container
+## Rebuild a specific container
 docker-compose up -d --build mcpo
 
-# View real-time logs
+## View real-time logs
 docker-compose logs -f mcpo
 
-# Check resource usage
+## Check resource usage
 docker stats mcpo-gateway
 
 # Test in powershell:
-# AUTH BEARER
+## AUTH BEARER
 abracadabra
 
-# Playwright
+## Playwright
 Invoke-RestMethod -Uri http://localhost:8000/playwright/openapi.json
 http://host.docker.internal:8000/playwright
 http://mcpo-gateway:8000/playwright
 
-# Memory
+## Memory
 Invoke-RestMethod -Uri http://localhost:8000/memory/openapi.json
 http://host.docker.internal:8000/memory 
 http://mcpo-gateway:8000/memory
 
-# Fetch
+## Fetch
 Invoke-RestMethod -Uri http://localhost:8000/fetch/openapi.json
 http://host.docker.internal:8000/fetch 
 http://mcpo-gateway:8000/fetch
 
-# Filesystem
+## Filesystem
 Invoke-RestMethod -Uri http://localhost:8000/filesystem/openapi.json
 http://host.docker.internal:8000/filesystem 
 http://mcpo-gateway:8000/filesystem
 
-# GitHub
+## GitHub
 Invoke-RestMethod -Uri http://localhost:8000/github/openapi.json
 http://host.docker.internal:8000/github 
 http://mcpo-gateway:8000/github 
 
-# Example: Navigate (adjust path based on what you see in docs)
+## Example: Navigate (adjust path based on what you see in docs)
 
 # PROBANDO PLAYWRIGHT MCP Server Gateway por PowerShell
 

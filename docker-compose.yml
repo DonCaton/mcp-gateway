@@ -1,3 +1,4 @@
+name: webui-mcp-server
 services:
   # MCPO Gateway - MCP to OpenAPI proxy
   mcpo:
@@ -18,8 +19,23 @@ services:
       - mcp-network
     shm_size: 2gb
 
+  # Open WebUI
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    ports:
+      - "3000:8080"
+    volumes:
+      - open-webui:/app/backend/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+    networks:
+      - mcp-network
+
 volumes:
   mcpo-data:
+  open-webui:
 
 networks:
   mcp-network:
