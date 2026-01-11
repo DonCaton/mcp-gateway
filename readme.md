@@ -39,23 +39,23 @@ http://mcpo-gateway:8000/playwright
 
 ## Memory
 Invoke-RestMethod -Uri http://localhost:8000/memory/openapi.json
-http://host.docker.internal:8000/memory 
+http://host.docker.internal:8000/memory
 http://mcpo-gateway:8000/memory
 
 ## Fetch
 Invoke-RestMethod -Uri http://localhost:8000/fetch/openapi.json
-http://host.docker.internal:8000/fetch 
+http://host.docker.internal:8000/fetch
 http://mcpo-gateway:8000/fetch
 
 ## Filesystem
 Invoke-RestMethod -Uri http://localhost:8000/filesystem/openapi.json
-http://host.docker.internal:8000/filesystem 
+http://host.docker.internal:8000/filesystem
 http://mcpo-gateway:8000/filesystem
 
 ## GitHub
 Invoke-RestMethod -Uri http://localhost:8000/github/openapi.json
-http://host.docker.internal:8000/github 
-http://mcpo-gateway:8000/github 
+http://host.docker.internal:8000/github
+http://mcpo-gateway:8000/github
 
 ## Example: Navigate (adjust path based on what you see in docs)
 
