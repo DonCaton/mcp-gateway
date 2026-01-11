@@ -1,5 +1,5 @@
 services:
-  # MCPO Proxy - Now includes Playwright directly
+  # MCPO Gateway - MCP to OpenAPI proxy
   mcpo:
     build:
       context: ./mcpo
@@ -23,4 +23,5 @@ volumes:
 
 networks:
   mcp-network:
+    name: mcp-network
     driver: bridge
