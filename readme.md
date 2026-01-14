@@ -1,3 +1,5 @@
+# WEBUI with an MCP-Gateway that links to MCP server Playwright
+
 # RUNNING OLLAMA Server
 
 set OLLAMA_VULKAN=1
