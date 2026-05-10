@@ -11,7 +11,7 @@ set parameter num_ctx to 32768 in general advanced config
 
 # For MCP Gateway solution created with Claude
 
-## Open WEB UI Standard standalone container installation
+## Open WEB UI Standard standalone container installation (standalone, do not run if you use docker-compose.yml)
 docker run -d ` -p 3000:8080 ` --add-host=host.docker.internal:host-gateway ` -v open-webui:/app/backend/data ` --name open-webui ` --restart always ` --network mcp-network ` ghcr.io/open-webui/open-webui:main
 
 ## Remove and rebuild everything
