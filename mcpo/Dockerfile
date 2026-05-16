@@ -19,6 +19,7 @@ WORKDIR /app
 RUN echo '#!/bin/bash\n\
 set -e\n\
 echo "Starting Xvfb..."\n\
+rm -f /tmp/.X99-lock\n\
 Xvfb :99 -screen 0 1920x1080x24 &\n\
 sleep 3\n\
 echo "Starting MCPO..."\n\

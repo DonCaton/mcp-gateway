@@ -26,6 +26,7 @@ docker-compose up -d --build mcpo
 
 ## View real-time logs
 docker-compose logs -f mcpo
+docker logs mcpo-gateway -f
 
 ## Check resource usage
 docker stats mcpo-gateway
