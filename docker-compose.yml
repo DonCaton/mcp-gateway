@@ -41,9 +41,7 @@ services:
           devices:
             - driver: nvidia
               count: all
-              capabilities: [gpu]
-#   volumes:
-#     open-webui-data:    
+              capabilities: [gpu]  
     networks:
       - mcp-network
   # ── 2. OpenClaw ─────────────────────────────────────────
@@ -73,6 +71,8 @@ services:
       - OLLAMA_BASE_URL=http://ollama-webui:11434  # apunta al container de Ollama
     networks:
       - mcp-network
+#volumes:
+#  open-webui-data:  
 networks:
   mcp-network:
     name: mcp-network
