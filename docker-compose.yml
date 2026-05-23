@@ -18,16 +18,32 @@ services:
     networks:
       - mcp-network
     shm_size: 2gb
-
-  # Open WebUI
-  open-webui:
-    image: ghcr.io/open-webui/open-webui:main
-    container_name: open-webui
+  # Ollama Open WebUI
+  ollama-webui:
+    image: ghcr.io/open-webui/open-webui:ollama
+    container_name: ollama-webui
     ports:
       - "3000:8080"
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    volumes:
+      # Tus modelos ya descargados — montados directamente
+      - C:\Users\EdO\.ollama:/root/.ollama
+      # Datos de Open WebUI (chats, usuarios, configuración)
+      # - open-webui-data:/app/backend/data
     restart: always
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+      - WEBUI_SECRET_KEY=abracadabra
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+#volumes:
+#  open-webui-data:    
     networks:
       - mcp-network
 
