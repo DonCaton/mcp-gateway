@@ -17,6 +17,17 @@ docker run -d ` -p 3000:8080 ` --add-host=host.docker.internal:host-gateway ` -v
 ## Remove and rebuild everything
 docker-compose down
 docker-compose up -d --build
+docker compose down -v   # borra volúmenes
+docker rm ollama-webui   # elimina el container
+
+# Ver si Ollama detecta la GPU
+docker exec ollama-webui ollama run --help
+
+# Ver nvidia-smi dentro del container
+docker exec ollama-webui nvidia-smi
+
+# Ver logs de Ollama buscando menciones a GPU/CUDA
+docker logs ollama-webui 2>&1 | findstr -i "cuda\|gpu\|nvidia"
 
 ## Restart a specific container
 docker-compose restart mcpo
