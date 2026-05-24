@@ -56,6 +56,8 @@ services:
     restart: unless-stopped
     environment:
       - OLLAMA_BASE_URL=http://ollama-webui:11434  # apunta al container de Ollama
+      - OPENCLAW_GATEWAY_MODE=local
+      - OPENCLAW_GATEWAY_TOKEN=abracadabra
     networks:
       - mcp-network
   # ── 3. Hermes Agent ─────────────────────────────────────
