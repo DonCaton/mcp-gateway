@@ -1,0 +1,1 @@
+{"gateway":{"mode":"local","bind":"lan","port":18789,"auth":{"token":"abracadabra"},"controlUi":{"dangerouslyDisableDeviceAuth":true}},"models":{"providers":{"ollama":{"apiKey":"ollama-local","baseUrl":"http://ollama-webui:11434","api":"ollama","timeoutSeconds":300}}},"agents":{"defaults":{"model":{"primary":"ollama/qwen3-coder:30b","fallbacks":[]}}}}
