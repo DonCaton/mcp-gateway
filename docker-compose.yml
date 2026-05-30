@@ -24,6 +24,7 @@ services:
     container_name: ollama-webui
     ports:
       - "3000:8080"
+      - "11434:11434" # FIX: Expose Ollama's internal port to the network
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
@@ -64,15 +65,29 @@ services:
   hermes:
     image: nousresearch/hermes-agent:latest
     container_name: hermes
+    # CORRECCIÓN 1: Forzar a Hermes a iniciar en modo servidor/gateway
+    command: gateway run
     ports:
-      - "8642:8642"       # Dashboard de Hermes
+      # CORRECCIÓN 3: Mapear tu puerto 8642 al puerto web real de Hermes (9119)
+      - "8642:9119"       
     volumes:
       - C:\Users\EdO\.hermes:/opt/data
     restart: unless-stopped
     environment:
-      - OLLAMA_BASE_URL=http://ollama-webui:11434  # apunta al container de Ollama
+      - OLLAMA_BASE_URL=http://ollama-webui:11434
+      - LLM_PROVIDER=ollama
+      - OLLAMA_MODEL=qwen3.5:27b
+      # CORRECCIÓN 2: Activar explícitamente el Dashboard web
+      - HERMES_DASHBOARD=1
+      # 1. Permite que el panel local y herramientas externas interactúen sin bloquearse por seguridad
+      - GATEWAY_ALLOW_ALL_USERS=true
+      # 2. Habilita el servidor API interno para que OpenClaw o Open WebUI puedan enviarle tareas
+      - API_SERVER_ENABLED=true
+      - API_SERVER_HOST=0.0.0.0      
+      - API_SERVER_KEY=abracadabra 
     networks:
       - mcp-network
+
 #volumes:
 #  open-webui-data:  
 networks:
