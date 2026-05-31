@@ -1,11 +1,12 @@
-FROM pytorch/pytorch:2.3.0-cuda12.1-cudnn8-runtime
+FROM pytorch/pytorch:2.5.1-cuda12.4-cudnn9-runtime
 
 WORKDIR /app
 
 RUN pip install --no-cache-dir \
-    diffusers \
-    transformers \
-    accelerate \
+    "diffusers==0.30.3" \
+    "transformers==4.44.2" \
+    "accelerate>=0.26.0" \
+    torchvision \
     fastapi \
     uvicorn
 
