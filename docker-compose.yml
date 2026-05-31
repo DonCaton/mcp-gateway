@@ -31,11 +31,12 @@ services:
       # Tus modelos ya descargados — montados directamente
       - C:\Users\EdO\.ollama:/root/.ollama
       # Datos de Open WebUI (chats, usuarios, configuración)
-      # - open-webui-data:/app/backend/data
+      - D:\Development\LLM-LAB\ollama-stack\open-webui-data:/app/backend/data
     restart: always
     environment:
       - OLLAMA_HOST=0.0.0.0
       - WEBUI_SECRET_KEY=abracadabra
+      - CUDA_VISIBLE_DEVICES=1,0   # ← Titan RTX (bus GPU1) pasa a ser CUDA device 0
     deploy:
       resources:
         reservations:
@@ -89,7 +90,28 @@ services:
       - API_SERVER_KEY=abracadabra 
     networks:
       - mcp-network
-
+  # ── 4. Generar Imagenes SDXL-TURBO
+  sdxl-turbo:
+    build:
+      context: ./sdxl-turbo
+      dockerfile: Dockerfile
+    container_name: sdxl-turbo
+    ports:
+      - "7860:7860"
+    volumes:
+      - D:\Development\LLM-LAB\ollama-stack\hf-cache:/root/.cache/huggingface
+    environment:
+      - HF_HOME=/root/.cache/huggingface
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    networks:
+      - mcp-network
+    restart: unless-stopped
 #volumes:
 #  open-webui-data:  
 networks:

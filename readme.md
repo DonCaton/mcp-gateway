@@ -19,6 +19,7 @@ docker-compose down
 docker-compose up -d --build
 docker compose down -v   # borra volúmenes
 docker rm ollama-webui   # elimina el container
+docker exec -it ollama-webui /bin/bash # correr bash
 
 # Ver si Ollama detecta la GPU
 docker exec ollama-webui ollama run --help
