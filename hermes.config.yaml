@@ -4,8 +4,9 @@ model:
   base_url: http://ollama-webui:11434/v1
   api_key: "none"
 terminal:
-  backend: local
-  cwd: .
+  backend: local           # Change back to local
+  modal_mode: host         # Force it to run inside the hermes container itself
+  cwd: /opt/data           # Set a Linux-native directory inside the container
   timeout: 180
   docker_mount_cwd_to_workspace: false
   lifetime_seconds: 300
@@ -14,6 +15,7 @@ terminal:
   container_disk: 51200
   container_persistent: true
 browser:
+  backend: local           # Ensure browser actions don't try to spawn containers
   inactivity_timeout: 120
 tool_loop_guardrails:
   warnings_enabled: true

@@ -68,26 +68,27 @@ services:
     container_name: hermes
     command: gateway run
     ports:
-      - "8642:9119"       
+      - "9119:9119"       # Dashboard UI (Admin panel)
+      - "8642:8642"       # Platform API / OpenAI server (What WebUI talks to)       
     volumes:
       - C:\Users\EdO\.hermes:/opt/data
+      #- /var/run/docker.sock:/var/run/docker.sock # ← CRITICAL: Adds host Docker control
     restart: unless-stopped
     environment:
       # FIX 1: Explicitly force local custom provider engine
       - HERMES_INFERENCE_PROVIDER=custom
-      
       # FIX 2: Correct the endpoint with the mandatory /v1 suffix
       - HERMES_API_BASE_URL=http://ollama-webui:11434/v1
-      
       # FIX 3: Assign your security token explicitly for the LLM requests
       #- HERMES_API_KEY=
-      
       # Keep your existing Web UI dashboard settings below
       - HERMES_DASHBOARD=1
       - GATEWAY_ALLOW_ALL_USERS=true
       - API_SERVER_ENABLED=true
-      - API_SERVER_HOST=0.0.0.0      
-      - API_SERVER_KEY=abracadabra 
+      - API_SERVER_HOST=0.0.0.0
+      - API_SERVER_KEY=abracadabra
+      # FIX: Allow the dashboard to communicate with the API without cross-origin blocks
+      - API_SERVER_CORS_ORIGINS=*
     networks:
       - mcp-network
   # ── 4. Generar Imagenes SDXL-TURBO
