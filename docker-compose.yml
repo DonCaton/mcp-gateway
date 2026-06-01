@@ -37,6 +37,7 @@ services:
       - OLLAMA_HOST=0.0.0.0
       - WEBUI_SECRET_KEY=abracadabra
       - CUDA_VISIBLE_DEVICES=1,0   # ← Titan RTX (bus GPU1) pasa a ser CUDA device 0
+      - OLLAMA_CONTEXT_WINDOW=98304
     deploy:
       resources:
         reservations:
