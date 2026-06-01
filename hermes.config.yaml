@@ -2,7 +2,7 @@ model:
   default: qwen3.5:27b
   provider: custom
   base_url: http://ollama-webui:11434/v1
-  api_key: "none"
+  api_key: abracadabra
 terminal:
   backend: local           # Change back to local
   modal_mode: host         # Force it to run inside the hermes container itself
