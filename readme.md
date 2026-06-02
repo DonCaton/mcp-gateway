@@ -254,3 +254,35 @@ $snapshot = Invoke-RestMethod -Uri "http://localhost:8000/playwright/browser_sna
 
 Write-Host "Page elements:" -ForegroundColor Cyan
 $snapshot | ConvertTo-Json -Depth 3
+
+# Setup Instructions for All Components
+
+## 1. MCP-O Gateway Setup
+The MCP-O Gateway requires the following files to be copied manually to the volumes path:
+- `mcpo/config.json` → This file should be placed at `/app/config/config.json` inside the container volume
+
+## 2. Hermes Agent Setup
+The Hermes Agent requires the following files to be copied manually to the volumes path:
+- `hermes/.env` → This file should be placed at `/opt/data/.env` inside the container volume
+- `hermes/config.yaml` → This file should be placed at `/opt/data/config.yaml` inside the container volume
+- `hermes/context_length_cache.yaml` → This file should be placed at `/opt/data/context_length_cache.yaml` inside the container volume
+- `hermes/skills/creative/sdxl-turbo-generate/` → This folder should be placed at `/opt/data/skills/creative/sdxl-turbo-generate/` inside the container volume
+
+## 3. OpenClaw Setup
+The OpenClaw requires the following files to be copied manually to the volumes path:
+- `openclaw/openclaw.json` → This file should be placed at `/home/node/.openclaw/config.json` inside the container volume
+
+## 4. SDXL-Turbo Image Generation Setup
+The SDXL-Turbo service requires the following files to be copied manually to the volumes path:
+- `sdxl-turbo/app.py` → This file should be placed at `/app/app.py` inside the container volume
+- `sdxl-turbo/Tool_GeneraImagen_sdxl-turbo.py` → This file should be placed at `/app/backend/data/tools/Tool_GeneraImagen_sdxl-turbo.py` inside the container volume
+
+## 5. Open WebUI Setup
+The Open WebUI requires the following files to be copied manually to the volumes path:
+- `Open WebUI/Web-UI_Access.JPG` → This file should be placed at `/app/backend/data/webui_access.jpg` inside the container volume
+
+## Important Notes
+- Dockerfiles are read directly from the docker-compose.yml and do not require manual copying
+- All volume paths are relative to the container's filesystem, not the host
+- Make sure to create the necessary directories in the volumes before copying files
+- The files in the volumes must match the paths specified in the docker-compose.yml file
