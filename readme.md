@@ -20,6 +20,7 @@ docker-compose up -d --build
 docker compose down -v   # borra volúmenes
 docker rm ollama-webui   # elimina el container
 docker exec -it ollama-webui /bin/bash # correr bash
+docker exec -u root openclaw chown -R node:node /home/node/.openclaw/workspace
 
 # Ver si Ollama detecta la GPU
 docker exec ollama-webui ollama run --help
@@ -271,6 +272,7 @@ The Hermes Agent requires the following files to be copied manually to the volum
 ## 3. OpenClaw Setup
 The OpenClaw requires the following files to be copied manually to the volumes path:
 - `openclaw/openclaw.json` → This file should be placed at `/home/node/.openclaw/config.json` inside the container volume
+- RUN openclaw agents add qwen3.5:27b inside the container
 
 ## 4. SDXL-Turbo Image Generation Setup
 The SDXL-Turbo service requires the following files to be copied manually to the volumes path:

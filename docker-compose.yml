@@ -49,20 +49,25 @@ services:
       - mcp-network
   # ── 2. OpenClaw ─────────────────────────────────────────
   openclaw:
-    image: ghcr.io/openclaw/openclaw:latest
+    build:
+      context: ./openclaw
+      dockerfile: Dockerfile
     container_name: openclaw
+    command: openclaw gateway run      # Run
     ports:
       - "18789:18789"     # Dashboard de OpenClaw
     volumes:
       - C:\Users\EdO\.openclaw:/home/node/.openclaw
-      - C:\Users\EdO\openclaw-workspace:/home/node/workspace
+      - C:\Users\EdO\openclaw-workspace:/home/node/.openclaw/workspace
     restart: unless-stopped
     environment:
-      - OLLAMA_BASE_URL=http://ollama-webui:11434  # apunta al container de Ollama
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434  # apunta al container de Ollama
       - OPENCLAW_GATEWAY_MODE=local
       - OPENCLAW_GATEWAY_TOKEN=abracadabra
+      - PUPPETEER_SKIP_DOWNLOAD=1 # Skip downloading bundled Chromium
     networks:
       - mcp-network
+    shm_size: 2gb # Required for Chromium headless operation
   # ── 3. Hermes Agent ─────────────────────────────────────
   hermes:
     image: nousresearch/hermes-agent:latest
