@@ -66,7 +66,7 @@ services:
       - OPENCLAW_GATEWAY_TOKEN=abracadabra
       - OPENCLAW_BROWSER_HEADLESS=1
       - OPENCLAW_BROWSER_NO_SANDBOX=1
-      - TELEGRAM_BOT_TOKEN="8972872485:AAH5Pu9wnoN0gBUZNJ3EKzqDMzE1Om5gl5g"
+      - TELEGRAM_BOT_TOKEN=8972872485:AAH5Pu9wnoN0gBUZNJ3EKzqDMzE1Om5gl5g
       - PUPPETEER_SKIP_DOWNLOAD=1 # Skip downloading bundled Chromium
     networks:
       - mcp-network
