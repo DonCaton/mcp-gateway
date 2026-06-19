@@ -57,7 +57,8 @@ ENV CHROMIUM_FLAGS="--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usag
 RUN mkdir -p /home/node/.cache/google-chrome \
     && mkdir -p /home/node/.config/chromium \
     && chown -R node:node /home/node/.cache \
-    && chown -R node:node /home/node/.config
+    && chown -R node:node /home/node/.config \
+    && chown -R node:node /home/node/.openclaw
 
 USER node
 
