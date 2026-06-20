@@ -56,6 +56,7 @@ services:
     command: openclaw gateway run      # Run
     ports:
       - "18789:18789"     # Dashboard de OpenClaw
+      - "8086:8086"     # API de OpenClaw (lo que el MCP Gateway va a consumir)
     volumes:
       - C:\Users\EdO\.openclaw:/home/node/.openclaw
       - C:\Users\EdO\openclaw-workspace:/home/node/.openclaw/workspace
