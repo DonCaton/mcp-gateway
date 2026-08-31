@@ -19,32 +19,41 @@ services:
       - mcp-network
     shm_size: 2gb
   # Ollama Open WebUI
-  ollama-webui:
-    image: ghcr.io/open-webui/open-webui:ollama
-    container_name: ollama-webui
-    ports:
-      - "3000:8080"
-      - "11434:11434" # FIX: Expose Ollama's internal port to the network
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
     volumes:
-      # Tus modelos ya descargados — montados directamente
       - C:\Users\EdO\.ollama:/root/.ollama
-      # Datos de Open WebUI (chats, usuarios, configuración)
-      - D:\Development\LLM-LAB\ollama-stack\open-webui-data:/app/backend/data
-    restart: always
     environment:
       - OLLAMA_HOST=0.0.0.0
-      - WEBUI_SECRET_KEY=abracadabra
-      - CUDA_VISIBLE_DEVICES=1,0   # ← Titan RTX (bus GPU1) pasa a ser CUDA device 0
+      - CUDA_VISIBLE_DEVICES=1,0
       - OLLAMA_CONTEXT_WINDOW=98304
+    ports:
+      - "11434:11434"
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
               count: all
-              capabilities: [gpu]  
+              capabilities: [gpu]
+    restart: always
+    networks:
+      - mcp-network
+
+  ollama-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: ollama-webui
+    ports:
+      - "3000:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - D:\Development\LLM-LAB\ollama-stack\open-webui-data:/app/backend/data
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - WEBUI_SECRET_KEY=abracadabra
+    restart: always
     networks:
       - mcp-network
   # ── 2. OpenClaw ─────────────────────────────────────────
