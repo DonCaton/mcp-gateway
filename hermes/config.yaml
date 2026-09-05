@@ -1,7 +1,7 @@
 model:
   default: qwen3.5:27b
   provider: custom
-  base_url: http://ollama-webui:11434/v1
+  base_url: http://host.docker.internal:11434/v1
   api_key: abracadabra
   context_length: 98304
 terminal:

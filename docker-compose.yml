@@ -19,27 +19,27 @@ services:
       - mcp-network
     shm_size: 2gb
   # Ollama Open WebUI
-  ollama:
-    image: ollama/ollama:latest
-    container_name: ollama
-    volumes:
-      - C:\Users\EdO\.ollama:/root/.ollama
-    environment:
-      - OLLAMA_HOST=0.0.0.0
-      - CUDA_VISIBLE_DEVICES=1,0
-      - OLLAMA_CONTEXT_WINDOW=98304
-    ports:
-      - "11434:11434"
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
-    restart: always
-    networks:
-      - mcp-network
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   container_name: ollama
+  #   volumes:
+  #     - C:\Users\EdO\.ollama:/root/.ollama
+  #   environment:
+  #     - OLLAMA_HOST=0.0.0.0
+  #     - CUDA_VISIBLE_DEVICES=1,0
+  #     - OLLAMA_CONTEXT_WINDOW=98304
+  #   ports:
+  #     - "11434:11434"
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             count: all
+  #             capabilities: [gpu]
+  #   restart: always
+  #   networks:
+  #     - mcp-network
 
   ollama-webui:
     image: ghcr.io/open-webui/open-webui:main
@@ -51,7 +51,7 @@ services:
     volumes:
       - D:\Development\LLM-LAB\ollama-stack\open-webui-data:/app/backend/data
     environment:
-      - OLLAMA_BASE_URL=http://ollama:11434
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
       - WEBUI_SECRET_KEY=abracadabra
     restart: always
     networks:
@@ -97,7 +97,7 @@ services:
       # FIX 1: Explicitly force local custom provider engine
       - HERMES_INFERENCE_PROVIDER=custom
       # FIX 2: Correct the endpoint with the mandatory /v1 suffix
-      - HERMES_API_BASE_URL=http://ollama-webui:11434/v1
+      - HERMES_API_BASE_URL=http://host.docker.internal:11434/v1
       # FIX 3: Assign your security token explicitly for the LLM requests
       - HERMES_API_KEY=abracadabra
       # FIX 4: Ensure session management is enabled
